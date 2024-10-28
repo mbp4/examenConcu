@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class VentanaSensores extends JFrame{
-    private JButton botonPelotas;
+    public JButton botonPelotas;
     private JPanel panel1;
     private JTable tablaPelotas;
     private JScrollPane scrollPanePelotas;
@@ -21,6 +21,7 @@ public class VentanaSensores extends JFrame{
         this.setSize(new Dimension(3000, 2000));
         this.getContentPane().setLayout(null);
         botonPelotas = new JButton("Tirar pelotas");
+        botonPelotas.setEnabled(false);
         botonPelotas.setBounds(10, 10, 300, 30);
         this.add(botonPelotas);
         botonReiniciar = new JButton("Reiniciar tabla");
@@ -63,7 +64,7 @@ public class VentanaSensores extends JFrame{
     }
 
     private void empezarMedicionPelotas() {
-        Sensor sensorT = new Sensor("Pelotas", this.configurador.getPelotas(), this);
+        Sensor sensorT = new Sensor("Pelotas", this.configurador, this);
         ScheduledExecutorService ejecutorT = Executors.newScheduledThreadPool(8);
         ejecutorT.scheduleAtFixedRate(() -> sensorT.medir(ejecutorT), 0, 40, TimeUnit.MILLISECONDS);
     }
